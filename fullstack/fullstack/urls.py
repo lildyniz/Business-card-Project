@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('ProjectsAndTasks.urls', namespace='ProjectsAndTasks')),
+    path('tf-idf', include('TF_IDF.urls', namespace='tf-idf')),
 ]
 
 if settings.DEBUG:
