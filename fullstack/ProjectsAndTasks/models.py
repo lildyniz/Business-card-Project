@@ -25,7 +25,7 @@ class Project_from_task(models.Model):
     image = models.ImageField(upload_to='project_images/', blank=True, null=True, verbose_name='Image')
 
     class Meta:
-        ordering = ['-id']
+        ordering = ['id']
         verbose_name = 'Project_from_task'
         verbose_name_plural = 'Projects_from_tasks'
 
