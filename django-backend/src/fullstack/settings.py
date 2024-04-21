@@ -11,24 +11,26 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import os
-from dotenv import load_dotenv
-load_dotenv()  # loads the configs from .env
+from . import locals_vars
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = locals_vars.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['myyproject.ru', '45.8.99.98']
 
 
 # Application definition
@@ -84,11 +86,11 @@ WSGI_APPLICATION = 'fullstack.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('PGL_NAME'),
-        'USER': os.environ.get('PGL_USER'),
-        'PASSWORD': os.environ.get('PGL_PASSWORD'),
-        'HOST': os.environ.get('PGL_HOST'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': locals_vars.PG_NAME,
+        'USER': locals_vars.PG_USER,
+        'PASSWORD': locals_vars.PG_PASSWORD,
+        'HOST': locals_vars.PG_HOST,
         'PORT': '',
     }
 }
@@ -139,5 +141,9 @@ STATICFILES_DIRS =[
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# MEDIA_URL = 'media/'
+# MEDIA_ROOT = BASE_DIR / 'media'
+
+STATIC_ROOT = '/var/www/static'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/var/www/media'
